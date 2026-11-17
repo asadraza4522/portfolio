@@ -1,41 +1,40 @@
-import Navbar from "./components/Navbar"
-import LocomotiveScroll from 'locomotive-scroll';
-import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import ProjectPage from "./pages/ProjectPage";
-import BlogPage from "./pages/BlogPage";
-import { AboutsPage } from "./pages/AboutPage";
-import { ContactPage } from "./pages/ContactPage";
-import ProjectDetails from "./pages/ProjectDetails";
-import BlogDetails from "./pages/BlogDetails";
-import { ResumeActions } from "./components/common/ResumeActions";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, MotionConfig } from "motion/react";
+import Lenis from "lenis";
+import { Cursor, Preloader, ScrollProgress } from "./fx";
+import { Hero, Nav } from "./hero";
+import { About, Contact, Experience, Marquee, Skills, Stats, Work } from "./sections";
 
 export default function App() {
+  const [ready, setReady] = useState(false);
+  const done = useCallback(() => setReady(true), []);
 
   useEffect(() => {
-    const scroll = new LocomotiveScroll({
-      el: document.querySelector("[data-scroll-container]"),
-      smooth: true,
-    });
-
-    return () => scroll.destroy(); 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -20 } });
+    let id;
+    const raf = (t) => { lenis.raf(t); id = requestAnimationFrame(raf); };
+    id = requestAnimationFrame(raf);
+    return () => { cancelAnimationFrame(id); lenis.destroy(); };
   }, []);
-  const [activeSection, setActiveSection] = useState('');
-  console.log('')
+
   return (
-    <>
-      <Navbar activeSection={activeSection} />
-      <Routes>
-        <Route path="/" element={<HomePage setActiveSection={setActiveSection} />} />
-        <Route path="/projects" element={<ProjectPage />} />
-        <Route path="/projects/:slug" element={<ProjectDetails />} />
-        <Route path="/blogs" element={<BlogPage />} />
-        <Route path="/blogs/:slug" element={<BlogDetails />} />
-        <Route path="/about" element={<AboutsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
-      <ResumeActions />
-    </>
-  )
+    <MotionConfig reducedMotion="user">
+      <AnimatePresence>{!ready && <Preloader key="pre" onDone={done} />}</AnimatePresence>
+      <div aria-hidden className="grain" />
+      <ScrollProgress />
+      <Cursor />
+      <Nav />
+      <main>
+        <Hero ready={ready} />
+        <Stats />
+        <Marquee />
+        <About />
+        <Work />
+        <Experience />
+        <Skills />
+        <Contact />
+      </main>
+    </MotionConfig>
+  );
 }
