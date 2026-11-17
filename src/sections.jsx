@@ -6,6 +6,7 @@ import {
 import { domains, education, experience, languages, marquee, moreWork, profile, projects, skills, stats } from "./data";
 import { Counter, Magnetic, Reveal, ScrollWords, SplitReveal, ease, useMedia } from "./fx";
 import reactApp from "./assets/react-app.jpg";
+import portrait from "./assets/asad.jpg";
 
 const icons = import.meta.glob("./assets/skills/*.svg", { eager: true, import: "default" });
 const icon = (n) => icons[`./assets/skills/${n}.svg`];
@@ -69,7 +70,20 @@ export function About() {
         text="I turn complex, high-stakes products into mobile apps that feel effortless — from wallets and health records to evidence that has to stand up in court."
         className="max-w-5xl text-[clamp(1.75rem,4.6vw,3.6rem)] font-light leading-[1.12] tracking-[-0.03em]"
       />
-      <Reveal className="mt-10 max-w-2xl text-lg leading-relaxed text-bone/60">{profile.summary}</Reveal>
+      <div className="mt-16 grid items-center gap-12 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+        <Portrait />
+        <div>
+          <Reveal className="text-lg leading-relaxed text-bone/65">{profile.summary}</Reveal>
+          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+            {[["Based in", profile.location], ["Experience", "7+ years"], ["Focus", "React Native · Expo"], ["Languages", languages.join(", ")]].map(([k, v], i) => (
+              <Reveal key={k} delay={i * 0.06} className="bg-ink p-5">
+                <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-mute">{k}</dt>
+                <dd className="mt-2 text-[15px] text-bone/90">{v}</dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+      </div>
 
       <div className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         {domains.map((d, i) => {
@@ -86,6 +100,36 @@ export function About() {
         })}
       </div>
     </section>
+  );
+}
+
+// Photo unmasks upward on entry and drifts with scroll (parallax).
+function Portrait() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  return (
+    <m.figure
+      ref={ref}
+      initial={{ clipPath: "inset(100% 0% 0% 0% round 28px)" }}
+      whileInView={{ clipPath: "inset(0% 0% 0% 0% round 28px)" }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 1.3, ease }}
+      className="group relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[28px] bg-ink-2"
+    >
+      <m.img
+        src={portrait}
+        alt="Asad Raza in downtown Dubai"
+        loading="lazy"
+        style={{ y }}
+        className="absolute inset-0 h-[116%] w-full -translate-y-[8%] object-cover object-center grayscale-[35%] transition-[filter] duration-700 group-hover:grayscale-0"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+      <figcaption className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-full border border-white/10 bg-ink/60 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-bone/80 backdrop-blur-md">
+        <span>Asad Raza</span>
+        <span className="flex items-center gap-2"><span className="pulse-dot relative h-1.5 w-1.5 rounded-full bg-emerald-400" />Available</span>
+      </figcaption>
+    </m.figure>
   );
 }
 
