@@ -10,10 +10,18 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Asad Raza — Senior React Native Engineer" />
     <meta property="og:description" content="7+ years shipping secure mobile apps across fintech, Web3 and health-tech. React Native · Expo · TypeScript." />
-    <meta name="twitter:card" content="summary" />
+    <!-- ponytail: relative og:image; LinkedIn/X need an absolute URL, swap in the real domain once deployed -->
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Asad Raza — Senior React Native Engineer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/og.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <!-- Non-blocking font load; the preloader hides the swap. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" /></noscript>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"Person","name":"Asad Raza","jobTitle":"Senior React Native Engineer","address":{"@type":"PostalAddress","addressLocality":"Rawalpindi","addressCountry":"PK"},"sameAs":["https://linkedin.com/in/asadraza4522"]}
     </script>

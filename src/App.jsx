@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, MotionConfig } from "motion/react";
+import { AnimatePresence, LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import Lenis from "lenis";
 import { Cursor, Preloader, ScrollProgress } from "./fx";
 import { Hero, Nav } from "./hero";
@@ -19,6 +19,7 @@ export default function App() {
   }, []);
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <MotionConfig reducedMotion="user">
       <AnimatePresence>{!ready && <Preloader key="pre" onDone={done} />}</AnimatePresence>
       <div aria-hidden className="grain" />
@@ -36,5 +37,6 @@ export default function App() {
         <Contact />
       </main>
     </MotionConfig>
+    </LazyMotion>
   );
 }

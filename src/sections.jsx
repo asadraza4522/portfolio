@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { m, useScroll, useSpring, useTransform } from "motion/react";
 import {
   ArrowUpRight, Check, Copy, Download, Fingerprint, GraduationCap, HeartPulse, Languages, Mail, MapPin, Phone, ShoppingBag, Wallet,
 } from "lucide-react";
 import { domains, education, experience, languages, marquee, moreWork, profile, projects, skills, stats } from "./data";
 import { Counter, Magnetic, Reveal, ScrollWords, SplitReveal, ease, useMedia } from "./fx";
-import reactApp from "./assets/react-app.png";
+import reactApp from "./assets/react-app.jpg";
 
 const icons = import.meta.glob("./assets/skills/*.svg", { eager: true, import: "default" });
 const icon = (n) => icons[`./assets/skills/${n}.svg`];
@@ -65,6 +65,7 @@ export function About() {
     <section id="about" className={`${wrap} py-28 md:py-40`}>
       <Eyebrow n="01">About</Eyebrow>
       <ScrollWords
+        as="h2"
         text="I turn complex, high-stakes products into mobile apps that feel effortless — from wallets and health records to evidence that has to stand up in court."
         className="max-w-5xl text-[clamp(1.75rem,4.6vw,3.6rem)] font-light leading-[1.12] tracking-[-0.03em]"
       />
@@ -158,14 +159,14 @@ function HorizontalWork() {
   return (
     <div ref={ref} style={{ height: `calc(100vh + ${dist}px)` }}>
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-        <motion.div ref={track} style={{ x }} className="flex w-max items-center gap-6 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-[8vw]">
+        <m.div ref={track} style={{ x }} className="flex w-max items-center gap-6 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-[8vw]">
           <WorkIntro />
           {projects.map((p, i) => (
             <div key={p.name} className="w-[min(36rem,44vw)] shrink-0"><ProjectCard p={p} i={i} /></div>
           ))}
-        </motion.div>
+        </m.div>
         <div className="mx-auto mt-10 h-px w-full max-w-6xl bg-line">
-          <motion.div style={{ width: bar }} className="h-px bg-accent" />
+          <m.div style={{ width: bar }} className="h-px bg-accent" />
         </div>
       </div>
     </div>
@@ -270,10 +271,10 @@ export function Experience() {
 
         <div ref={ref} className="relative pl-8 sm:pl-12">
           <div className="absolute bottom-0 left-0 top-0 w-px bg-line" />
-          <motion.div style={{ scaleY }} className="absolute bottom-0 left-0 top-0 w-px origin-top bg-accent" />
+          <m.div style={{ scaleY }} className="absolute bottom-0 left-0 top-0 w-px origin-top bg-accent" />
           <ol className="space-y-16">
             {experience.map((e, i) => (
-              <motion.li
+              <m.li
                 key={e.company}
                 initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -281,7 +282,7 @@ export function Experience() {
                 transition={{ duration: 0.9, ease }}
                 className="relative"
               >
-                <motion.span
+                <m.span
                   initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true, margin: "-15% 0px" }} transition={{ delay: 0.2, type: "spring", stiffness: 300 }}
                   className={`absolute -left-8 top-2 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-ink sm:-left-12 ${i === 0 ? "bg-accent shadow-[0_0_0_6px_rgba(255,95,46,.18)]" : "bg-bone"}`}
                 />
@@ -296,7 +297,7 @@ export function Experience() {
                 <div className="mt-5 flex flex-wrap gap-2">
                   {e.tags.map((t) => <span key={t} className="rounded-full bg-bone/[0.06] px-3 py-1 text-xs text-bone/70">{t}</span>)}
                 </div>
-              </motion.li>
+              </m.li>
             ))}
           </ol>
         </div>
@@ -321,7 +322,7 @@ export function Skills() {
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-mute">{g.group}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {g.items.map((s, k) => (
-                <motion.span
+                <m.span
                   key={s}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -329,7 +330,7 @@ export function Skills() {
                   transition={{ delay: 0.15 + k * 0.035, ease }}
                   whileHover={{ y: -3 }}
                   className="rounded-full border border-line bg-ink-2 px-3.5 py-1.5 text-sm text-bone/80 transition-colors hover:border-accent/60 hover:text-bone"
-                >{s}</motion.span>
+                >{s}</m.span>
               ))}
             </div>
           </Reveal>
@@ -365,7 +366,7 @@ export function Contact() {
 
   return (
     <section id="contact" ref={ref} className="px-3 pb-3 sm:px-4 sm:pb-4">
-      <motion.div style={{ scale, borderRadius: radius }} className="relative overflow-hidden bg-bone px-5 pb-8 pt-24 text-ink sm:px-10 md:pt-32">
+      <m.div style={{ scale, borderRadius: radius }} className="relative overflow-hidden bg-bone px-5 pb-8 pt-24 text-ink sm:px-10 md:pt-32">
         <div aria-hidden className="pointer-events-none absolute -right-32 -top-32 h-[30rem] w-[30rem] rounded-full bg-accent/40 blur-[120px]" />
         <div className="relative mx-auto max-w-6xl">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink/50"><span className="text-accent">05</span> — Contact</p>
@@ -383,7 +384,7 @@ export function Contact() {
             <button onClick={copy} aria-label="Copy email address" className="grid h-14 w-14 place-items-center rounded-full border border-ink/15 transition hover:bg-ink hover:text-bone">
               {copied ? <Check size={18} /> : <Copy size={18} />}
             </button>
-            <motion.span animate={{ opacity: copied ? 1 : 0, x: copied ? 0 : -8 }} className="font-mono text-xs text-ink/60" aria-live="polite">{copied ? "Copied!" : ""}</motion.span>
+            <m.span animate={{ opacity: copied ? 1 : 0, x: copied ? 0 : -8 }} className="font-mono text-xs text-ink/60" aria-live="polite">{copied ? "Copied!" : ""}</m.span>
           </div>
 
           <div className="mt-20 grid gap-8 border-t border-ink/10 pt-8 text-sm sm:grid-cols-2 lg:grid-cols-4">
@@ -401,7 +402,7 @@ export function Contact() {
             <a href="#top" className="hover:text-ink">Back to top ↑</a>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }
