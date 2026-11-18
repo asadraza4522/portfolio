@@ -6,6 +6,12 @@ import {
 import { domains, education, experience, languages, marquee, moreWork, profile, projects, skills, stats } from "./data";
 import { Counter, Magnetic, Reveal, ScrollWords, SplitReveal, ease, useMedia } from "./fx";
 import reactApp from "./assets/react-app.jpg";
+
+// { onelinedraw: "/assets/onelinedraw-xxxx.jpg", ... } keyed by file name.
+const shots = Object.fromEntries(
+  Object.entries(import.meta.glob("./assets/projects/*.jpg", { eager: true, import: "default" }))
+    .map(([path, url]) => [path.match(/([\w-]+)\.jpg$/)[1], url]),
+);
 import portrait from "./assets/asad.jpg";
 
 const icons = import.meta.glob("./assets/skills/*.svg", { eager: true, import: "default" });
@@ -225,18 +231,25 @@ function ProjectArt({ p }) {
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: `radial-gradient(120% 90% at 20% 10%, hsl(${h} 90% 60% / .55), transparent 55%), radial-gradient(90% 80% at 90% 100%, hsl(${(h + 60) % 360} 80% 55% / .4), transparent 60%), #141416` }}>
       <div className="grid-bg absolute inset-0 opacity-60" />
-      {/* floating device silhouette */}
-      <div className="absolute bottom-[-18%] right-[10%] aspect-[9/19] w-[34%] rounded-[1.8rem] border border-white/20 bg-black/40 p-2 backdrop-blur-sm transition-transform duration-[1.2s] ease-out group-hover:-translate-y-4 group-hover:rotate-[-3deg]">
-        <div className="h-full rounded-[1.4rem] border border-white/10" style={{ background: `linear-gradient(180deg, hsl(${h} 70% 55% / .35), transparent)` }}>
-          <div className="space-y-2 p-3 pt-6">
-            <div className="h-2 w-2/3 rounded-full bg-white/40" />
-            <div className="h-2 w-1/2 rounded-full bg-white/20" />
-            <div className="mt-4 h-14 rounded-xl bg-white/10" />
-            <div className="h-8 rounded-xl bg-white/10" />
-          </div>
+      {p.logo ? (
+        <img src={shots[p.logo]} alt={`${p.name} logo`} loading="lazy" className="absolute right-[9%] top-1/2 aspect-square w-[34%] -translate-y-1/2 rounded-[22%] object-cover shadow-2xl shadow-black/50 ring-1 ring-white/15 transition-transform duration-[1.2s] ease-out group-hover:-translate-y-[56%] group-hover:rotate-[-4deg]" />
+      ) : (
+        <div className={`absolute right-[10%] aspect-[9/19] w-[34%] rounded-[1.8rem] border border-white/20 bg-black/40 p-1.5 shadow-2xl shadow-black/50 backdrop-blur-sm transition-transform duration-[1.2s] ease-out group-hover:-translate-y-4 group-hover:rotate-[-3deg] ${p.shot ? "top-[9%]" : "bottom-[-18%] p-2"}`}>
+          {p.shot ? (
+            <img src={shots[p.shot]} alt={`${p.name} app screen`} loading="lazy" className="h-full w-full rounded-[1.45rem] object-cover object-top" />
+          ) : (
+            <div className="h-full rounded-[1.4rem] border border-white/10" style={{ background: `linear-gradient(180deg, hsl(${h} 70% 55% / .35), transparent)` }}>
+              <div className="space-y-2 p-3 pt-6">
+                <div className="h-2 w-2/3 rounded-full bg-white/40" />
+                <div className="h-2 w-1/2 rounded-full bg-white/20" />
+                <div className="mt-4 h-14 rounded-xl bg-white/10" />
+                <div className="h-8 rounded-xl bg-white/10" />
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-      <span className="absolute left-6 top-5 font-serif text-[clamp(3rem,6vw,5rem)] italic leading-none text-white/90 mix-blend-overlay">{p.name}</span>
+      )}
+      <span className="absolute left-6 top-5 max-w-[52%] font-serif text-[clamp(3rem,6vw,5rem)] italic leading-none text-white/90 mix-blend-overlay">{p.name}</span>
     </div>
   );
 }
