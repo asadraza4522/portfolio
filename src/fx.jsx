@@ -170,7 +170,8 @@ export function Preloader({ onDone }) {
   }, [onDone]);
   return (
     <m.div
-      className="fixed inset-0 z-[200] flex items-end justify-between bg-bone p-6 text-ink md:p-10"
+      // dvh = height actually visible between mobile browser bars; inset-0 would tuck the counter under them.
+      className="fixed left-0 top-0 z-[200] flex h-[100dvh] w-full items-end justify-between bg-bone p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-ink md:p-10"
       exit={{ clipPath: "inset(0 0 100% 0)" }}
       initial={{ clipPath: "inset(0 0 0% 0)" }}
       transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}

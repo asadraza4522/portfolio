@@ -7,6 +7,7 @@ export const profile = {
   email: "raza0120@gmail.com",
   phone: "+92 316 5784226",
   linkedin: "https://linkedin.com/in/asadraza4522",
+  github: "https://github.com/asadraza4522",
   resume: "/Asad_Raza_Resume.pdf",
   summary:
     "Senior React Native developer with 7+ years building and shipping production mobile and web apps across fintech, DeFi and blockchain, health-tech, e-commerce and EdTech. I work in React Native, Expo/EAS and TypeScript, with hands-on Supabase, Zustand, WalletConnect v2 and Solidity, and I ship secure, fast apps through CI/CD, using AI-assisted tools to move quicker without lowering the bar.",

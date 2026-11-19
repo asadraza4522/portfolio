@@ -444,8 +444,9 @@ export function Contact() {
             <m.span animate={{ opacity: copied ? 1 : 0, x: copied ? 0 : -8 }} className="font-mono text-xs text-ink/60" aria-live="polite">{copied ? "Copied!" : ""}</m.span>
           </div>
 
-          <div className="mt-20 grid gap-8 border-t border-ink/10 pt-8 text-sm sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-20 grid gap-8 border-t border-ink/10 pt-8 text-sm sm:grid-cols-2 lg:grid-cols-5">
             <FootLink href={profile.linkedin} label="LinkedIn" value="in/asadraza4522" icon={<LinkedIn />} />
+            <FootLink href={profile.github} label="GitHub" value="asadraza4522" icon={<GitHub />} />
             <FootLink href={`tel:${profile.phone.replace(/\s/g, "")}`} label="Phone / WhatsApp" value={profile.phone} icon={<Phone size={15} />} />
             <FootLink href={profile.resume} label="Résumé" value="Download PDF" icon={<Download size={15} />} download />
             <div>
@@ -481,6 +482,14 @@ function Clock() {
 }
 
 // lucide v1 dropped brand icons.
+function GitHub() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3" />
+    </svg>
+  );
+}
+
 function LinkedIn() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
