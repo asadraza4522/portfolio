@@ -25,3 +25,5 @@ dist-ssr
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+my_all_resumes/
