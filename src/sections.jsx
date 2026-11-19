@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { m, useScroll, useSpring, useTransform } from "motion/react";
 import {
-  ArrowUpRight, Check, Copy, Download, Fingerprint, GraduationCap, HeartPulse, Languages, Mail, MapPin, Phone, ShoppingBag, Wallet,
+  ArrowUpRight, Check, Copy, Download, Fingerprint, GraduationCap, HeartPulse, Languages, Mail, MapPin, ShoppingBag, Wallet,
 } from "lucide-react";
 import { domains, education, experience, languages, marquee, moreWork, profile, projects, skills, stats } from "./data";
 import { Counter, Magnetic, Reveal, ScrollWords, SplitReveal, ease, useMedia } from "./fx";
@@ -447,7 +447,7 @@ export function Contact() {
           <div className="mt-20 grid gap-8 border-t border-ink/10 pt-8 text-sm sm:grid-cols-2 lg:grid-cols-5">
             <FootLink href={profile.linkedin} label="LinkedIn" value="in/asadraza4522" icon={<LinkedIn />} />
             <FootLink href={profile.github} label="GitHub" value="asadraza4522" icon={<GitHub />} />
-            <FootLink href={`tel:${profile.phone.replace(/\s/g, "")}`} label="Phone / WhatsApp" value={profile.phone} icon={<Phone size={15} />} />
+            <FootLink href={`https://wa.me/${profile.phone.replace(/\D/g, "")}?text=${encodeURIComponent("Hi Asad, I came across your portfolio.")}`} label="WhatsApp" value={profile.phone} icon={<WhatsApp />} />
             <FootLink href={profile.resume} label="Résumé" value="Download PDF" icon={<Download size={15} />} download />
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/45">Local time</p>
@@ -482,6 +482,14 @@ function Clock() {
 }
 
 // lucide v1 dropped brand icons.
+function WhatsApp() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6 6 6 0 0 0 1.3 3.2 13.8 13.8 0 0 0 5.3 4.7c2 .8 2.7.9 3.7.7a3.1 3.1 0 0 0 2.1-1.5 2.5 2.5 0 0 0 .2-1.5c-.1-.1-.3-.2-.6-.3zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.3A11.8 11.8 0 0 0 1.8 17.7L.1 24l6.4-1.7A11.8 11.8 0 0 0 24 12a11.7 11.7 0 0 0-3.6-8.5z" />
+    </svg>
+  );
+}
+
 function GitHub() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
